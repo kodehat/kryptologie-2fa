@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html lang="de">
+    <head>
+        <meta charset="utf-8" />
+        <title>2FA Demo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    </head>
+    <body>
+    <section class="hero is-dark">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <h1 class="title is-1 is-spaced">
+                    2FA
+                </h1>
+                <h3 class="subtitle is-3">
+                    HOTP und TOTP in der Live-Demo
+                </h3>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-half">
+                    <div class="content has-text-centered">
+                        <h2>HOTP</h2>
+                    </div>
+                    <div>
+                        <div class="field">
+                            <label class="label is-medium" for="passwordLength">Passwortlänge</label>
+                            <div class="control">
+                                <div class="select is-medium is-fullwidth">
+                                    <select id="passwordLength">
+                                        <option value="6" selected>6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <p class="help">Die Länge des generierten Passworts</p>
+                        </div>
+                        <div class="field">
+                            <label class="label is-medium" for="algorithm">Algorithmus</label>
+                            <div class="control">
+                                <div class="select is-medium is-fullwidth">
+                                    <select id="algorithm">
+                                        <option value="HmacSHA1" selected>HMAC SHA-1</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <p class="help">Der zu verwendende Algorithmus für den HMAC</p>
+                        </div>
+
+                        <div class="field">
+                            <label class="label is-medium" for="secretKey">Schlüssel</label>
+                            <p class="control">
+                            <div class="field has-addons">
+                                <div class="control is-expanded">
+                                    <input class="input is-medium" type="text" id="secretKey">
+                                </div>
+                                <a class="button is-info is-medium" id="genSecretKeyBtn">
+                                    Generieren
+                                </a>
+                            </div>
+                            <p class="help">Der zu verwendende Schlüssel für den HMAC</p>
+                        </div>
+                        <div class="field">
+                            <label class="label is-medium" for="counter">Zähler</label>
+                            <div class="control">
+                                <input class="input is-medium" type="number" id="counter" value="0">
+                            </div>
+                            <p class="help">Der Wert für den Zähler</p>
+                        </div>
+                        <div class="field">
+                            <p class="control has-text-centered">
+                                <a class="button is-medium is-success is-rounded" id="hotpSubmitBtn">
+                                    Absenden
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-half">
+                    <div class="content has-text-centered">
+                        <h2>TOTP</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="columns is-invisible" id="resultBox">
+                <div class="column is-8 is-offset-2">
+                    <article class="message is-dark">
+                        <div class="message-body">
+                            <div class="content is-medium">
+                                <ul>
+                                    <li>
+                                        Mod Divisor: <br><kbd><span id="modDivisor"></span></kbd>
+                                    </li>
+                                    <li>
+                                        Leerer Buffer: <br><kbd><span id="bufferEmpty"></span></kbd>
+                                    </li>
+                                    <li>
+                                        Buffer mit Counter: <br><kbd><span id="bufferWithCounter"></span></kbd>
+                                    </li>
+                                    <li>
+                                        HMAC: <br><kbd><span id="hmac"></span></kbd>
+                                    </li>
+                                    <li>
+                                        Offset: <br><kbd><span id="offset"></span></kbd>
+                                    </li>
+                                    <li>
+                                        Buffer Schritte: <br><kbd><span id="bufferSteps"></span></kbd>
+                                    </li>
+                                    <li>
+                                        Ersten vier Bytes: <br><kbd><span id="firstFourBytes"></span></kbd>
+                                    </li>
+                                    <li>
+                                        HOTP: <br><kbd><span id="hotp"></span></kbd>
+                                    </li>
+                                    <li>
+                                        Finales One Time Password: <br><kbd><span id="result"></span></kbd>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script charset="utf-8" src="js/app.js"></script>
+    </body>
+</html>
