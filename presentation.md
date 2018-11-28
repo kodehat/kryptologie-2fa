@@ -2,7 +2,7 @@
 
 ![](images/2fa.png)
 
-###### Marc-Niclas Harm | 29.11.2018 | TH-Luebeck
+###### Marc-Niclas Harm | 29.11.2018 | TH-Lübeck
 
 ---
 
@@ -11,9 +11,9 @@
 - Was ist **2FA**?
 - Wieso überhaupt **2FA**?
 - Algorithmus-Beispiel: **TOTP** (anhand von **HOTP**)
-- Anwendungen fuer **TOTP**
-- Weitere **2FA** Moeglichkeiten
-  - SMS, Anruf, E-Mail, Hardware Token
+- Weitere **2FA** Möglichkeiten
+  - SMS, Anruf, E-Mail, Security-Token
+- U2F-Standard
 
 ---
 
@@ -38,10 +38,10 @@
 # Wieso überhaupt **2FA**:question:
 
 - Verlust von persönlichen Daten bei Unternehmen immer zahlreicher
-- Internetkriminalitaet wird anspruchsvoller
+- Internetkriminalität wird anspruchsvoller
 - Datenverlust oder Identitätsdiebstahl für Verbraucher verheerend
 - Selten unterschiedliche Passwörter
-- Passwoerter allein **nicht** ausreichend zum Schutz von Daten
+- Passwörter allein **nicht** ausreichend zum Schutz von Daten
 
 :arrow_right: **2FA** als zusätzlicher Schutz
 
@@ -55,8 +55,8 @@
 # Kurz: Was ist ein Hash:question:
 
 - Jeder Input ergibt immer denselben Output (**Determinismus**)
-- Aus einem gegebenen Hash (Output) den Input zurueckzuerhalten ist rechnerisch nicht machbar (**Einwegfunktion**)
-- Kleine Aenderung im Onput, fuehrt zu drastischer Aenderung im Output (**keine Korrelation**)
+- Aus einem gegebenen Hash (Output) den Input zurückzuerhalten ist rechnerisch "nicht" machbar (**Einwegfunktion**)
+- Kleine Änderung im Input, führt zu drastischer Änderung im Output (**keine Korrelation**)
 
 ---
 
@@ -68,20 +68,21 @@ $$HOTP(K,C) = Truncate(HMAC-SHA-1(K,C))$$
 
 |Name|Beschreibung|
 |:-:|:-|
-|**K**|Schluessel|
-|**C**|Zaehler|
+|**K**|Schlüssel|
+|**C**|Zähler|
 |**HMAC**|Keyed-Hash Message Authentication Code|
 |**SHA-1**|Secure Hash Algorithm 1|
-|**Truncate**|Konvertiert Hash in Einmalpasswort|
+|**Truncate**|Konvertiert Hash in HOTP|
 
 
 ---
 
-# Nachteile von HOTP
+# Nachteile von HOTPs
 
-- Generiertes Einmalpasswort ist solange gültig bis ein neues generiert wird
-- Alle moeglichen Einmalpasswoerter mittels **Brute-Force** ausprobieren
-	- Anbieter sollten Zugang nach einigen Fehlversuchen für ein bestimmtes Zeitintervall sperren
+- Counter muss ggf. synchronisiert werden
+- Generiertes HOTP ist solange gültig bis ein neues generiert wird
+- Alle möglichen HOTPs mittels **Brute-Force** ausprobieren
+	- Zugang muss nach einigen Fehlversuchen für ein bestimmtes Zeitintervall gesperrt werden
 
 ---
 
@@ -94,19 +95,19 @@ $$T = Floor((Unixtime(Now) - Unixtime(T0)) / TI)$$
 
 |Name|Beschreibung|
 |:-:|:-|
-|**K**|Schluessel|
+|**K**|Schlüssel|
 |**Now**|Aktuelles Datum & Zeit|
 |**T0**|1. Januar 1970, 00:00 Uhr UTC (Start der Unixzeit)|
 |**T1**|Gültigkeitsintervall|
 |**Unixtime**|Konvertiert Datum & Zeit in Unix-Zeitstempel|
-|**Floor**|Rundet auf die naechste ganze Zahl ab|
+|**Floor**|Rundet auf die nächste ganze Zahl ab|
 
 ---
 
-# Vorteile von TOTP
+# Vorteile von TOTPs
 
-- Jedes generiertes Passwort ist nur in einem **bestimmten, kurzen** Intervall gültig
-- Auch hier **Brute-Force-Methode** moeglich, solange die Durchsatzrate an Einmalpasswoerten nicht begrenzt wird
+- Jedes generierte TOTP ist nun nur in einem **bestimmten, kurzen** Zeitintervall gültig
+- **Aber**: Auch hier **Brute-Force-Methode** möglich, solange die Durchsatzrate an TOTPs nicht begrenzt wird
 
 ---
 
@@ -114,17 +115,11 @@ $$T = Floor((Unixtime(Now) - Unixtime(T0)) / TI)$$
 
 ---
 
-# Anwendungen fuer TOTP
-
-- // ANWENDUNGEN
-
----
-
-# Weitere **2FA** Moeglichkeiten
+# Weitere **2FA** Möglichkeiten
 
 - **SMS**, **Anruf**, **E-Mail**
-	- Zusendung des Einmalpassworts nach Eingabe der Telefonnummer/E-Mail
-- **Hardwaretoken**
+	- Zusendung des OTPs nach Eingabe der Telefonnummer/E-Mail
+- **Security-Token**
 	- Identifizierung und Authentifizierung von Benutzern mittels einer Hardwarekomponente
 	- Bekanntes Beispiel: **U2F-Standard der FIDO-Allianz**
 	![](images/hardware-yubikeys-2.jpg)
@@ -133,11 +128,13 @@ $$T = Floor((Unixtime(Now) - Unixtime(T0)) / TI)$$
 
 # U2F-Standard
 
+> Universal Second Factor
+
 ![](images/fido-u2f.png)
 
 ---
 
-### Welche Mechanismen waehlen:question:
+### Welche Mechanismen wählen:question:
 
 ![](images/it_grundschutz.png)
 
@@ -166,6 +163,7 @@ $$T = Floor((Unixtime(Now) - Unixtime(T0)) / TI)$$
 
 - <sub>https://authy.com/what-is-2fa/</sub>
 - <sub>https://itsecblog.de/2fa-zwei-faktor-authentifizierung-mit-totp/</sub>
+- <sub>https://fidoalliance.org/specs/fido-u2f-v1.0-rd-20140209/fido-u2f-overview-v1.0-rd-20140209.pdf</sub>
 - <sub>https://www.bsi.bund.de/DE/Themen/ITGrundschutz/ITGrundschutzKataloge/Inhalt/_content/m/m04/m04133.html</sub>
 - <sub>https://digitalguardian.com/blog/uncovering-password-habits-are-users-password-security-habits-improving-infographic</sub>
 
@@ -176,6 +174,8 @@ $$T = Floor((Unixtime(Now) - Unixtime(T0)) / TI)$$
 #### Textquellen 2
 
 - <sub>https://www.allthingsauth.com/2018/04/20/a-medium-dive-on-the-totp-spec/</sub>
+- <sub>https://tools.ietf.org/html/rfc4226</sub>
+- <sub>https://tools.ietf.org/html/rfc6238</sub>
 
 ---
 
