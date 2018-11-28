@@ -1,24 +1,52 @@
 $(document).ready(function() {
     console.log("Document is ready!");
 
-    var genSecretKeyBtn = $('#genSecretKeyBtn');
+    /* HOTP variables */
+    var hotpGenSecretKeyBtn = $('#hotpGenSecretKeyBtn');
     var hotpSubmitBtn = $('#hotpSubmitBtn');
 
-    var passwordLengthInput = $('#passwordLength');
-    var algorithmInput = $('#algorithm');
-    var secretKeyInput = $('#secretKey');
-    var counterInput = $('#counter');
+    var hotpPasswordLengthInput = $('#hotpPasswordLength');
+    var hotpAlgorithmInput = $('#hotpAlgorithm');
+    var hotpSecretKeyInput = $('#hotpSecretKey');
+    var hotpCounterInput = $('#hotpCounter');
+
+    /* TOTP variables */
+    var totpGenSecretKeyBtn = $('#totpGenSecretKeyBtn');
+    var totpSubmitBtn = $('#totpSubmitBtn');
+
+    var totpPasswordLengthInput = $('#totpPasswordLength');
+    var totpAlgorithmInput = $('#totpAlgorithm');
+    var totpSecretKeyInput = $('#totpSecretKey');
+    var totpCounterInput = $('#totpCounter');
+    var totpTimeStep = $('#totpTimeStep');
+    var totpNowField = $('#totpNow');
 
     var resultBox = $('#resultBox');
+    var resultBoxCloseBtns = $('.close-modal');
 
-    genSecretKeyBtn.on('ready click', function () {
-        genSecretKey(secretKeyInput, 20);
+    genSecretKey(hotpSecretKeyInput, 20);
+    genSecretKey(totpSecretKeyInput, 20);
+    totpCounterInput.val(Date.now());
+
+    resultBoxCloseBtns.on('click', function () {
+       resultBox.removeClass('is-active');
     });
+
+    hotpGenSecretKeyBtn.on('click', function () {
+        genSecretKey(hotpSecretKeyInput, 20);
+    });
+    totpGenSecretKeyBtn.on('click', function () {
+        genSecretKey(totpSecretKeyInput, 20);
+    });
+
+    window.setInterval(function () {
+        totpNowField.text(Date.now());
+    }, 1000);
 
     hotpSubmitBtn.on('click', function (e) {
         e.preventDefault();
 
-        if (!allFieldsValid()) {
+        if (!allHotpFieldsValid()) {
             alert("Bitte alle Felder ausfüllen!");
             return;
         }
@@ -26,13 +54,13 @@ $(document).ready(function() {
         hotpSubmitBtn.toggleClass('is-loading');
         hotpSubmitBtn.attr('disabled', 'disabled');
 
-        var jqxhr = $.ajax( "/hotp/" + buildUrlParams(passwordLengthInput.val(), algorithmInput.val(), secretKeyInput.val(), counterInput.val()))
+        var jqxhr = $.ajax( "/hotp/" + buildHotpUrlParams(hotpPasswordLengthInput.val(), hotpAlgorithmInput.val(), hotpSecretKeyInput.val(), hotpCounterInput.val()))
             .done(function (data) {
                 console.log("Success!");
                 $.each(data, function (name, item) {
                     $('#' + name).text(item);
                 });
-                resultBox.removeClass('is-invisible');
+                resultBox.addClass('is-active');
             })
             .fail(function (xhr, status, error) {
                 alert("Error: " + error);
@@ -43,12 +71,46 @@ $(document).ready(function() {
             });
     });
 
-    function allFieldsValid() {
-        return passwordLengthInput.val() && algorithmInput.val() && secretKeyInput.val() && counterInput.val();
+    totpSubmitBtn.on('click', function (e) {
+        e.preventDefault();
+
+        if (!allTotpFieldsValid()) {
+            alert("Bitte alle Felder ausfüllen!");
+            return;
+        }
+
+        totpSubmitBtn.toggleClass('is-loading');
+        totpSubmitBtn.attr('disabled', 'disabled');
+
+        var jqxhr = $.ajax( "/totp/" + buildTotpUrlParams(totpPasswordLengthInput.val(), totpAlgorithmInput.val(), totpSecretKeyInput.val(), totpCounterInput.val(), totpTimeStep.val()))
+            .done(function (data) {
+                console.log("Success!");
+                $.each(data, function (name, item) {
+                    $('#' + name).text(item);
+                });
+                resultBox.addClass('is-active');
+            })
+            .fail(function (xhr, status, error) {
+                alert("Error: " + error);
+            })
+            .always(function () {
+                totpSubmitBtn.toggleClass('is-loading');
+                totpSubmitBtn.attr('disabled', null);
+            });
+    });
+
+    function allHotpFieldsValid() {
+        return hotpPasswordLengthInput.val() && hotpAlgorithmInput.val() && hotpSecretKeyInput.val() && hotpCounterInput.val();
+    }
+    function allTotpFieldsValid() {
+        return totpPasswordLengthInput.val() && totpAlgorithmInput.val() && totpSecretKeyInput.val() && totpCounterInput.val() && totpTimeStep.val();
     }
 
-    function buildUrlParams(passwordLength, algorithm, secretKey, counter) {
+    function buildHotpUrlParams(passwordLength, algorithm, secretKey, counter) {
         return passwordLength + "/" + algorithm + "/" + secretKey + "/" + counter;
+    }
+    function buildTotpUrlParams(passwordLength, algorithm, secretKey, counter, timeStep) {
+        return passwordLength + "/" + algorithm + "/" + secretKey + "/" + counter + "/" + timeStep;
     }
 
     function genSecretKey(secretKeyInput, length) {

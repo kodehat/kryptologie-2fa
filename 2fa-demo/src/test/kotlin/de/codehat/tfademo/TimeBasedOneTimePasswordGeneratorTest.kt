@@ -14,10 +14,6 @@ import javax.crypto.spec.SecretKeySpec
 @RunWith(JUnitParamsRunner::class)
 open class TimeBasedOneTimePasswordGeneratorTest: HmacOneTimePasswordGeneratorTest() {
 
-    protected fun getDefaultGenerator(): HmacOneTimePasswordGenerator {
-        return TimeBasedOneTimePasswordGenerator()
-    }
-
     @Test
     @Parameters(
         "HmacSHA1,   59,          94287082",

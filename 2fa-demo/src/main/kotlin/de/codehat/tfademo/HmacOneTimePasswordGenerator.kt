@@ -8,14 +8,12 @@ import javax.crypto.SecretKey
 import kotlin.experimental.and
 
 data class OneTimePasswordData(
-    val modDivisor: Int,
     val counter: Long,
     val bufferEmpty: String,
     val bufferWithCounter: String,
     val hmac: String,
     val offset: Byte,
     val bufferSteps: List<String>,
-    val firstFourBytes: Int,
     val hotp: Int,
     val result: Int
 )
@@ -76,7 +74,7 @@ open class HmacOneTimePasswordGenerator(private val passwordLength: Int,
         val bufferStepsStr = mutableListOf<String>()
         for (i in 0..3) {
             buffer.put(i, hmac[i + offset])
-            bufferStepsStr.add(i, Arrays.toString(buffer.array()))
+            bufferStepsStr.add(i, hmac[i + offset].toString())
         }
 
         val firstFourBytes = buffer.getInt(0)
@@ -86,14 +84,12 @@ open class HmacOneTimePasswordGenerator(private val passwordLength: Int,
         val res = hotp % this.modDivisor
 
         return OneTimePasswordData(
-            modDivisor,
             counter,
             emptyBufferStr,
             bufferWithCounterStr,
             hmacStr,
             offset,
             bufferStepsStr,
-            firstFourBytes,
             hotp,
             res
         )
