@@ -10,7 +10,8 @@ import javax.crypto.spec.SecretKeySpec
 
 fun main(args: Array<String>) {
     val app = Javalin.create().apply {
-        port(8080)
+        val port = System.getProperty("server.port") ?: "8080"
+        port(port.toInt())
         enableStaticFiles("/public")
     }.start()
 

@@ -77,7 +77,6 @@ open class HmacOneTimePasswordGenerator(private val passwordLength: Int,
             bufferStepsStr.add(i, hmac[i + offset].toString())
         }
 
-        val firstFourBytes = buffer.getInt(0)
         val hotp = buffer.getInt(0) and 0x7fffffff
         //println("Alternative: ${(buffer.getInt(0) % Math.pow(2.0, 31.0)).toInt()}")
 
