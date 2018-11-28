@@ -10,10 +10,8 @@
 
 - Was ist **2FA**?
 - Wieso überhaupt **2FA**?
-- Algorithmus-Beispiel: **TOTP** (anhand von **HOTP**)
-- Weitere **2FA** Möglichkeiten
-  - SMS, Anruf, E-Mail, Security-Token
-- U2F-Standard
+- Verfahren-Beispiele: **HOTP** und **TOTP**
+- Weitere **2FA** Verfahren
 
 ---
 
@@ -55,7 +53,7 @@
 # Kurz: Was ist ein Hash:question:
 
 - Jeder Input ergibt immer denselben Output (**Determinismus**)
-- Aus einem gegebenen Hash (Output) den Input zurückzuerhalten ist rechnerisch "nicht" machbar (**Einwegfunktion**)
+- Aus einem gegebenen Hash (Output) den Input zurückzuerhalten ist sehr schwierig (**Einwegfunktion**)
 - Kleine Änderung im Input, führt zu drastischer Änderung im Output (**keine Korrelation**)
 
 ---
@@ -111,17 +109,17 @@ $$T = Floor((Unixtime(Now) - Unixtime(T0)) / TI)$$
 
 ---
 
-# Live-Demo :boom:
+# HOTP und TOTP Demo :boom:
 
 ---
 
-# Weitere **2FA** Möglichkeiten
+# Weitere **2FA** Verfahren
 
 - **SMS**, **Anruf**, **E-Mail**
 	- Zusendung des OTPs nach Eingabe der Telefonnummer/E-Mail
 - **Security-Token**
 	- Identifizierung und Authentifizierung von Benutzern mittels einer Hardwarekomponente
-	- Bekanntes Beispiel: **U2F-Standard der FIDO-Allianz**
+	- Beispiel: **U2F-Standard der FIDO-Allianz**
 	![](images/hardware-yubikeys-2.jpg)
 
 ---

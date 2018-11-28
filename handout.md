@@ -4,7 +4,7 @@
 
 ## Was ist 2FA :question:
 
-Die **Two-Factor-Authentication** (**2FA**) ist eine Unterform der **Multi-Factor-Authentication** (**MFA**). Der Hauptzweck der **MFA** liegt darin, einen Benutzer zu **identifizieren** und/oder zu **authentisieren**. Dabei müssen **mindestens zwei verschiedene** der folgenden Faktoren benutzt werden:
+Die **Two-Factor-Authentication** (**2FA**) ist eine Unterform der **Multi-Factor-Authentication** (**MFA**). Der Hauptzweck der **MFA** liegt darin, einen Benutzer zu **identifizieren** und/oder zu **authentisieren**. Dabei müssen **mindestens zwei verschiedene** der folgenden Faktoren verwendet werden:
 
 |          Faktor          | Beispiel                                                     |
 | :----------------------: | ------------------------------------------------------------ |
@@ -12,11 +12,11 @@ Die **Two-Factor-Authentication** (**2FA**) ist eine Unterform der **Multi-Facto
 | **Besitz** :credit_card: | Security-Token wie *USB-Token*, *Chip-Karte*                 |
 |   **Inhärenz** :eyes:    | biometrische Charakteristika wie *Fingerabdruck*, *Unterschrift* |
 
-Bei **2FA** sind es genau **zwei verschiedene** Faktoren, welche gegeben sein müssen. Diese **zwei** Faktoren sind überwiegend **Wissen** in Form eines Passworts und **Besitz** in Form eines **Software-Tokens**.
+Bei **2FA** sind es genau **zwei verschiedene** Faktoren, welche gegeben sein müssen. Bei **Applikationen** im **Web** sind diese **zwei** Faktoren überwiegend das **Wissen** in Form eines Passworts und der **Besitz** in Form eines **Software-Tokens**.
 
 ## Wieso ist 2FA heutzutage wichtig/notwendig :question:
 
-Immer häufiger liest man im Internet oder in der Zeitung, dass beim Unternehmen *XYZ* tausende persönliche Daten **gestohlen** wurden. Egal ob verursacht durch immer anspruchsvoller werdende **Kriminelle** oder durch ein **einfaches Datenleck**, am Ende ist es auch der Nutzer, der leidet.
+Immer häufiger liest man im Internet oder in der Zeitung, dass beim Unternehmen *XYZ* tausende persönliche Daten **gestohlen** wurden. Egal, ob verursacht durch immer **anspruchsvoller werdende Kriminelle** oder durch ein **einfaches Datenleck**, am Ende ist es auch der Nutzer, der leidet.
 
 Falls nun der unwahrscheinliche Fall eintritt, dass diejenigen, die die Daten in die Hände bekommen haben, es schaffen die **Passwörter** der Nutzer zu "entschlüsseln" (liegen meistens in *Hash-Form* vor), dann haben all jene Nutzer dieser Menge ein Problem, welche dieses **Passwort** noch bei anderen **Diensten** nutzen und dort keine **2FA** aktiviert haben. Der **Zugriff** auf diese **Accounts** ist nun ein Leichtes.
 
@@ -44,7 +44,7 @@ $HOTP = Truncate(HMAC − SHA − 1(K,C))$
 
 Wenn man die **HOTPs** beispielsweise von zwei verschiedenen Geräten aus generiert, kann es vorkommen, dass die **Zähler** der beiden Geräte **asynchron** werden. Hier muss dann eine Möglichkeit gefunden werden, die **Zähler** zu **synchronisieren**.
 
-Weiterhin ist ein generiertes und anschließend benutztes **HOTP** solange gültig, bis ein Weiteres generiert und benutzt wurde und der **Zähler** auf der **Serverseite** erhöht wurde.
+Weiterhin ist ein generiertes und anschließend benutztes **HOTP** solange gültig, bis ein Weiteres generiert, benutzt und der **Zähler** auf der **Serverseite** erhöht wurde.
 
 Ferner können **HOTPs** mittels der **Brute-Force-Methode** (Ausprobieren aller möglichen Werte) gefunden werden. Dies muss mit Hilfe einer **Sperrung der Eingabe von HOTPs** nach einer bestimmten Anzahl an Fehlversuchen für ein bestimmtes Zeitintervall unterbunden werden.
 
@@ -74,7 +74,7 @@ Dadurch, dass der **Zähler** nun durch einen **Unix-Zeitstempel** repräsentier
 
 ### SMS, Anruf, E-Mail
 
-Die drei Möglichkeiten **SMS**, **Anruf** und **E-Mail** basieren alle darauf, dass einem nach Eingabe der **Telefonnummer**/**E-Mail-Adresse** das **OTP** zugesendet wird (sei es durch Text oder durch Ton). Das Problem dabei ist, dass diese im eigentlichen Sinne nicht für die **2FA **gedacht waren. **Telefonnummern** und **E-Mail-Adressen** können neu vergeben, und **SIM-Karten** können gehackt werden.
+Die drei Möglichkeiten **SMS**, **Anruf** und **E-Mail** basieren alle darauf, dass einem nach Eingabe der **Telefonnummer**/**E-Mail-Adresse** das **OTP** zugesendet wird (sei es durch Text oder durch Ton). Das Problem dabei ist, dass diese im eigentlichen Sinne nicht für den Einsatz als Verfahren der **2FA **gedacht waren. **Telefonnummern** und **E-Mail-Adressen** können neu vergeben, und **SIM-Karten** gehackt werden.
 
 ### Security-Token
 
@@ -86,15 +86,15 @@ Bei einem **Security-Token** wird eine **Hardwarekomponente** benutzt, um sich z
 
 Beim **U2F-Standard** wird zur **Authentifizierung** eine Art des **Challenge-Response-Verfahrens** angewandt, welches - knapp formuliert - wie folgt funktioniert:
 
-1. Nach Prüfung von z.B. **Nutzernamen** und **Passwort** kommt es zur **2FA** via **U2F**
+1. Nach Prüfung von z.B. **Nutzernamen** und **Passwort** kommt es zur **2FA** via **U2F** und der **Benutzer** schließt sein **U2F-Gerät** - beispielsweise über **USB** - an sein **Endgerät** an
 
 2. Der **Server** schickt eine **Challenge** und eine **Schlüsselkennung**
 
 3. Der **Client** (z.B. im Web der Browser) leitet die Daten an das **U2F-Gerät** weiter
 
-4. Der **Benutzer** muss den Vorgang nun bestätigen (z.B. durch einen Knopf auf dem U2F-Gerät). Nach der Bestätigung sucht dann das **U2F-Gerät** den zur **Schlüsselkennung** passenden **privaten Schlüssel **heraus und **signiert** damit die **Challenge**. Die erstellte **Signatur** wird zurück an den **Browser** geleitet.
+4. Der **Benutzer** muss den Vorgang nun bestätigen (z.B. durch einen Knopf auf dem U2F-Gerät). Nach der Bestätigung nutzt dann das **U2F-Gerät** den zur **Schlüsselkennung** passenden **privaten Schlüssel **, um damit die **Challenge** zu **signieren**. Die erstellte **Signatur** wird danach zurück an den **Browser** geleitet.
 
-5. Der **Browser** schickt die **Challenge** mit der **Signatur** zurück an den **Server**, welcher mithilfe des zur **Schlüsselkennung** passenden **öffentlichen Schlüssels** die Signatur prüft und anhand des **Ergebnisses** den Zugang gewährt oder nicht gewährt.
+5. Der **Browser** schickt die **Challenge** mit der **Signatur** zurück an den **Server**, welcher mithilfe des zur **Schlüsselkennung** passenden **öffentlichen Schlüssels** die Signatur prüft und anhand des **Ergebnisses** den Zugang entweder **gewährt** oder **nicht gewährt**.
 
    (Setzt voraus, dass das U2F-Gerät des Benutzers und der Server vorher ein Schlüsselpaar ausgehandelt haben.)
 
