@@ -10,7 +10,7 @@
 
 - Was ist **2FA**?
 - Wieso überhaupt **2FA**?
-- Verfahren-Beispiele: **HOTP** und **TOTP**
+- Algorithmus-Beispiele: **HOTP** und **TOTP**
 - Weitere **2FA** Verfahren
 
 ---
@@ -45,12 +45,12 @@
 
 ---
 
-# Algorithmus-Beispiel:
-# **TOTP** (anhand von **HOTP**)
+# Algorithmus-Beispiele:
+# **HOTP** und **TOTP**
 
 ---
 
-# Kurz: Was ist ein Hash:question:
+# Kurz: Was ist eine Hashfunktion:question:
 
 - Jeder Input ergibt immer denselben Output (**Determinismus**)
 - Aus einem gegebenen Hash (Output) den Input zurückzuerhalten ist sehr schwierig (**Einwegfunktion**)
