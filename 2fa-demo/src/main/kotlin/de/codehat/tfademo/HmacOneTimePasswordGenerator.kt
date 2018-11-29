@@ -14,6 +14,7 @@ data class OneTimePasswordData(
     val hmac: String,
     val offset: Byte,
     val bufferSteps: List<String>,
+    val hotpWithSign: Int,
     val hotp: Int,
     val result: Int
 )
@@ -77,10 +78,11 @@ open class HmacOneTimePasswordGenerator(private val passwordLength: Int,
             bufferStepsStr.add(i, hmac[i + offset].toString())
         }
 
-        val hotp = buffer.getInt(0) and 0x7fffffff
+        val hotpWithSign = buffer.getInt(0)
+        val hotpWithoutSign = buffer.getInt(0) and 0x7fffffff
         //println("Alternative: ${(buffer.getInt(0) % Math.pow(2.0, 31.0)).toInt()}")
 
-        val res = hotp % this.modDivisor
+        val res = hotpWithoutSign % this.modDivisor
 
         return OneTimePasswordData(
             counter,
@@ -89,7 +91,8 @@ open class HmacOneTimePasswordGenerator(private val passwordLength: Int,
             hmacStr,
             offset,
             bufferStepsStr,
-            hotp,
+            hotpWithSign,
+            hotpWithoutSign,
             res
         )
     }

@@ -52,8 +52,7 @@ Ferner können **HOTPs** mittels der **Brute-Force-Methode** (Ausprobieren aller
 
 > Time-Based One-Time Password Algorithm
 
-$$TOTP = HOTP(K,T)$$
-$$T = Floor((Unixtime(Now) - Unixtime(T0)) / TI)$$
+$TOTP = HOTP(K,T) \quad mit \quad T = Floor((Unixtime(Now) - Unixtime(T0)) / TI)$
 
 |     Name     | Beschreibung                                       |
 | :----------: | :------------------------------------------------- |
