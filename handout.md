@@ -16,9 +16,9 @@ Bei **2FA** sind es genau **zwei verschiedene** Faktoren, welche gegeben sein m�
 
 ## Wieso ist 2FA heutzutage wichtig/notwendig :question:
 
-Immer häufiger liest man im Internet oder in der Zeitung, dass beim Unternehmen *XYZ* tausende persönliche Daten **gestohlen** wurden. Egal, ob verursacht durch immer **anspruchsvoller werdende Kriminelle** oder durch ein **einfaches Datenleck**, am Ende ist es auch der Nutzer, der leidet.
+Immer häufiger liest man im Internet oder in der Zeitung, dass beim Unternehmen *XYZ* tausende persönliche Daten **gestohlen** wurden. Egal, ob verursacht durch immer **anspruchsvoller werdende Kriminelle** oder durch ein **einfaches Datenleck**, letztendlich ist es, neben dem Unternehmen selbst, auch der Nutzer, der leidet.
 
-Falls nun der unwahrscheinliche Fall eintritt, dass diejenigen, die die Daten in die Hände bekommen haben, es schaffen die **Passwörter** der Nutzer zu "entschlüsseln" (liegen meistens in *Hash-Form* vor), dann haben all jene Nutzer dieser Menge ein Problem, welche dieses **Passwort** noch bei anderen **Diensten** nutzen und dort keine **2FA** aktiviert haben. Der **Zugriff** auf diese **Accounts** ist nun ein Leichtes.
+Falls nun der unwahrscheinliche Fall eintritt, dass diejenigen, die die Daten in die Hände bekommen haben, es schaffen die **Passwörter** der Nutzer zu "entschlüsseln" (liegen meistens in *Hash-Form* vor, sodass ein "entschlüsseln" theoretisch nicht möglich ist), dann haben all jene Nutzer dieser Menge ein Problem, welche dieses **Passwort** noch bei anderen **Diensten** nutzen und dort keine **2FA** aktiviert haben. Der **Zugriff** auf diese **Accounts** ist nun ein Leichtes.
 
 Man kommt somit zu dem Schluss, dass **Passwörter** alleine heutzutage **nicht mehr** zum Schutz beim **Login** von Diensten **ausreichen** und ein **zusätzlicher Schutz** wie die **2FA** nötig sind.
 
@@ -32,13 +32,12 @@ Man kommt somit zu dem Schluss, dass **Passwörter** alleine heutzutage **nicht 
 
 $HOTP = Truncate(HMAC − SHA − 1(K,C))$
 
-|     Name     | Beschreibung                           |
-| :----------: | :------------------------------------- |
-|    **K**     | Schlüssel                              |
-|    **C**     | Zähler                                 |
-|   **HMAC**   | Keyed-Hash Message Authentication Code |
-|  **SHA-1**   | Secure Hash Algorithm 1                |
-| **Truncate** | Konvertiert Hash in HOTP               |
+|      Name      | Beschreibung                                                 |
+| :------------: | :----------------------------------------------------------- |
+|     **K**      | Schlüssel                                                    |
+|     **C**      | Zähler                                                       |
+| **HMAC-SHA-1** | Keyed-Hash Message Authentication Code mit Secure Hash Algorithm 1 |
+|  **Truncate**  | Konvertiert Hash in HOTP                                     |
 
 #### Nachteile von HOTP
 
@@ -52,7 +51,7 @@ Ferner können **HOTPs** mittels der **Brute-Force-Methode** (Ausprobieren aller
 
 > Time-Based One-Time Password Algorithm
 
-$TOTP = HOTP(K,T) \quad mit \quad T = Floor((Unixtime(Now) - Unixtime(T0)) / TI)$
+$TOTP = HOTP(K,T) \quad mit \quad T = Floor((Unixtime(Now) - Unixtime(T0)) / T1)$
 
 |     Name     | Beschreibung                                       |
 | :----------: | :------------------------------------------------- |
@@ -104,6 +103,8 @@ Beim **U2F-Standard** wird zur **Authentifizierung** eine Art des **Challenge-Re
 Repository: https://github.com/kodehat/kryptologie-2fa
 
 ## Quellen
+
+Alle Quellen abgerufen am 28.11.2018.
 
 - https://authy.com/what-is-2fa/
 - https://itsecblog.de/2fa-zwei-faktor-authentifizierung-mit-totp/

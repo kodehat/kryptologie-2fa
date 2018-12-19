@@ -2,7 +2,7 @@
 
 ![](images/2fa.png)
 
-###### Marc-Niclas Harm | 29.11.2018 | TH-Lübeck
+###### Marc-Niclas Harm | 20.12.2018 | TH-Lübeck
 
 ---
 
@@ -18,8 +18,8 @@
 # Was ist **2FA**:question:
 
 - Unterkategorie der **Multi-Factor-Authentication** (**MFA**)
-- Dient der Bestätigung der Identität eines Nutzers
-- Bestehend aus mind. **zwei** unabhängigen Faktoren
+	- Dient der Bestätigung der Identität eines Nutzers
+	- Bestehend aus mind. **zwei** unabhängigen Faktoren
 
 ||||
 |:-:|:-:|:-:|
@@ -39,7 +39,7 @@
 - Internetkriminalität wird anspruchsvoller
 - Datenverlust oder Identitätsdiebstahl für Verbraucher verheerend
 - Selten unterschiedliche Passwörter
-- Passwörter allein **nicht** ausreichend zum Schutz von Daten
+- Passwörter alleine **nicht** ausreichend zum Schutz von Daten
 
 :arrow_right: **2FA** als zusätzlicher Schutz
 
@@ -68,8 +68,7 @@ $$HOTP(K,C) = Truncate(HMAC-SHA-1(K,C))$$
 |:-:|:-|
 |**K**|Schlüssel|
 |**C**|Zähler|
-|**HMAC**|Keyed-Hash Message Authentication Code|
-|**SHA-1**|Secure Hash Algorithm 1|
+|**HMAC-SHA-1**|Keyed-Hash Message Authentication Code mit Secure Hash Algorithm 1|
 |**Truncate**|Konvertiert Hash in HOTP|
 
 
@@ -78,7 +77,7 @@ $$HOTP(K,C) = Truncate(HMAC-SHA-1(K,C))$$
 # Nachteile von HOTPs
 
 - Counter muss ggf. synchronisiert werden
-- Generiertes HOTP ist solange gültig bis ein neues generiert wird
+- Generiertes HOTP ist solange gültig bis der Counter ein neues generiert wird
 - Alle möglichen HOTPs mittels **Brute-Force** ausprobieren
 	- Zugang muss nach einigen Fehlversuchen für ein bestimmtes Zeitintervall gesperrt werden
 
@@ -89,7 +88,7 @@ $$HOTP(K,C) = Truncate(HMAC-SHA-1(K,C))$$
 > Time-Based One-Time Password Algorithm
 
 $$TOTP = HOTP(K,T)$$
-$$T = Floor((Unixtime(Now) - Unixtime(T0)) / TI)$$
+$$T = Floor((Unixtime(Now) - Unixtime(T0)) / T1)$$
 
 |Name|Beschreibung|
 |:-:|:-|
@@ -104,12 +103,13 @@ $$T = Floor((Unixtime(Now) - Unixtime(T0)) / TI)$$
 
 # Vorteile von TOTPs
 
-- Jedes generierte TOTP ist nun nur in einem **bestimmten, kurzen** Zeitintervall gültig
+- Jedes generierte TOTP ist nur in **einem bestimmten, kurzen Zeitintervall** gültig
 - **Aber**: Auch hier **Brute-Force-Methode** möglich, solange die Durchsatzrate an TOTPs nicht begrenzt wird
 
 ---
 
 # HOTP und TOTP Demo :boom:
+https://tranquil-stream-71831.herokuapp.com/
 
 ---
 
@@ -132,6 +132,11 @@ $$T = Floor((Unixtime(Now) - Unixtime(T0)) / TI)$$
 
 ---
 
+# U2F-Demo :boom:
+https://demo.yubico.com/u2f
+
+---
+
 ### Welche Mechanismen wählen:question:
 
 ![](images/it_grundschutz.png)
@@ -146,7 +151,7 @@ $$T = Floor((Unixtime(Now) - Unixtime(T0)) / TI)$$
 
 # Quellen :clipboard:
 
-#### Bildquellen
+#### Bildquellen (alle abgerufen am 28.11.2018)
 
 - <sub>https://www.eff.org/files/2016/12/08/2fa-1.png</sub>
 - <sub>https://www.safetynet-inc.com/wp-content/uploads/2017/08/Two-Factor-Authentication.jpg</sub>
@@ -157,7 +162,7 @@ $$T = Floor((Unixtime(Now) - Unixtime(T0)) / TI)$$
 
 # Quellen :clipboard:
 
-#### Textquellen 1
+#### Textquellen 1 (alle abgerufen am 28.11.2018)
 
 - <sub>https://authy.com/what-is-2fa/</sub>
 - <sub>https://itsecblog.de/2fa-zwei-faktor-authentifizierung-mit-totp/</sub>
@@ -169,7 +174,7 @@ $$T = Floor((Unixtime(Now) - Unixtime(T0)) / TI)$$
 
 # Quellen :clipboard:
 
-#### Textquellen 2
+#### Textquellen 2 (alle abgerufen am 28.11.2018)
 
 - <sub>https://www.allthingsauth.com/2018/04/20/a-medium-dive-on-the-totp-spec/</sub>
 - <sub>https://tools.ietf.org/html/rfc4226</sub>

@@ -24,6 +24,7 @@ fun main(args: Array<String>) {
 
             val hotp = HmacOneTimePasswordGenerator(passwordLength, algorithm)
             val data = hotp.generateOneTimePassword(SecretKeySpec(secretKey.toByteArray(StandardCharsets.US_ASCII), "RAW"), counter)
+            if (passwordLength > data.result.length) data.result = "0" + data.result
             it.json(data)
         }
         get("/totp/:password_length/:algorithm/:secret_key/:timestamp/:time_step") {
@@ -35,6 +36,7 @@ fun main(args: Array<String>) {
 
             val totp = TimeBasedOneTimePasswordGenerator(timeStep, TimeUnit.SECONDS, passwordLength, algorithm)
             val data = totp.generateOneTimePassword(SecretKeySpec(secretKey.toByteArray(StandardCharsets.US_ASCII), "RAW"), timestamp)
+            if (passwordLength > data.result.length) data.result = "0" + data.result
             it.json(data)
         }
     }

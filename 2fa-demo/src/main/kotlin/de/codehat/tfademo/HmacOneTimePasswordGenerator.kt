@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException
 import java.util.*
 import javax.crypto.Mac
 import javax.crypto.SecretKey
+import javax.xml.bind.DatatypeConverter
 import kotlin.experimental.and
 
 data class OneTimePasswordData(
@@ -16,7 +17,7 @@ data class OneTimePasswordData(
     val bufferSteps: List<String>,
     val hotpWithSign: Int,
     val hotp: Int,
-    val result: Int
+    var result: String
 )
 
 open class HmacOneTimePasswordGenerator(private val passwordLength: Int,
@@ -93,7 +94,7 @@ open class HmacOneTimePasswordGenerator(private val passwordLength: Int,
             bufferStepsStr,
             hotpWithSign,
             hotpWithoutSign,
-            res
+            res.toString()
         )
     }
 }
